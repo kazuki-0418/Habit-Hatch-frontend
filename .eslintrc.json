@@ -1,3 +1,147 @@
 {
-  "extends": "next/core-web-vitals"
+  "parser": "@typescript-eslint/parser",
+  "parserOptions": {
+    "project": "tsconfig.json"
+  },
+  "plugins": ["import-access", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "plugin:@typescript-eslint/recommended",
+    "plugin:jsx-a11y/recommended",
+    "next/core-web-vitals"
+  ],
+  "rules": {
+    "prettier/prettier": "warn",
+    "no-console": ["error", { "allow": ["warn", "info", "error"] }],
+    "no-restricted-syntax": ["error"],
+    "prefer-arrow-callback": "error",
+    "prefer-const": "error",
+    "func-style": ["error", "expression"],
+    "no-restricted-imports": [
+      "error",
+      { "paths": [{ "name": "react", "importNames": ["default"] }] }
+    ],
+    "react/prop-types": "off",
+    "react/react-in-jsx-scope": "off",
+    "react/display-name": "off",
+    "react/jsx-handler-names": "off",
+    "react/destructuring-assignment": ["error", "always"],
+    "react-hooks/rules-of-hooks": "error",
+    "react-hooks/exhaustive-deps": "warn",
+    "import/newline-after-import": "error",
+    "import/no-default-export": "error",
+    "import-access/jsdoc": "error",
+    "@typescript-eslint/no-explicit-any": "off",
+    "@typescript-eslint/no-var-requires": "off",
+    "@typescript-eslint/explicit-module-boundary-types": "off",
+    "@typescript-eslint/consistent-type-imports": ["warn", { "prefer": "type-imports" }],
+    "@typescript-eslint/no-unused-vars": [
+      "error",
+      { "varsIgnorePattern": "^_", "argsIgnorePattern": "^_" }
+    ],
+    "@typescript-eslint/naming-convention": [
+      "error",
+      { "selector": ["typeAlias", "typeParameter"], "format": ["PascalCase"] },
+      {
+        // 変数
+        "selector": ["variable"],
+        "format": ["strictCamelCase"]
+      },
+      {
+        // 定数
+        "selector": ["variable"],
+        "modifiers": ["const"],
+        "format": ["strictCamelCase", "UPPER_CASE"]
+      },
+      {
+        // 関数、コンポーネント
+        "selector": ["variable"],
+        "types": ["function"],
+        "modifiers": ["const"],
+        "format": ["strictCamelCase", "PascalCase"]
+      },
+      {
+        "selector": "parameter",
+        "format": ["strictCamelCase"],
+        "leadingUnderscore": "allow"
+      },
+      {
+        "selector": ["typeAlias", "interface"],
+        "format": ["StrictPascalCase"]
+      },
+      {
+        "selector": "variable",
+        "types": ["boolean"],
+        "format": ["PascalCase"],
+        "prefix": ["no", "is", "has", "should"],
+        "filter": { "regex": "^_", "match": false }
+      }
+    ],
+    "react/function-component-definition": [
+      "error",
+      {
+        "namedComponents": "arrow-function",
+        "unnamedComponents": "arrow-function"
+      }
+    ],
+    "jsx-a11y/no-autofocus": "off",
+    "jsx-a11y/anchor-is-valid": [
+      "error",
+      {
+        "components": ["Link"],
+        "specialLink": ["hrefLeft", "hrefRight"],
+        "aspects": ["invalidHref", "preferButton"]
+      }
+    ],
+    "semi": ["error", "never", { "beforeStatementContinuationChars": "never" }]
+  },
+  "overrides": [
+    {
+      "files": ["*.stories.tsx", "src/pages//**/*"],
+      "rules": {
+        "import/no-default-export": "off"
+      }
+    },
+    {
+      "files": ["src/pages/**/*.tsx", "src/**/*.tsx", "src/pages/api/*.ts", "*.config.js"],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": ["typeAlias", "typeParameter"],
+            "format": ["PascalCase"]
+          },
+          {
+            "selector": ["classProperty", "typeProperty", "method"],
+            "format": ["camelCase"]
+          },
+          {
+            "selector": "variable",
+            "types": ["boolean"],
+            "format": ["PascalCase"],
+            "prefix": ["is", "has", "should"]
+          }
+        ]
+      }
+    },
+    {
+      "files": ["src/type/**/*.d.ts"],
+      "rules": {
+        "@typescript-eslint/naming-convention": [
+          "error",
+          {
+            "selector": ["typeAlias", "typeParameter"],
+            "format": ["PascalCase"]
+          },
+          { "selector": ["classProperty", "method"], "format": ["camelCase"] },
+          {
+            "selector": "variable",
+            "types": ["boolean"],
+            "format": ["PascalCase"],
+            "prefix": ["is", "has", "should"]
+          }
+        ]
+      }
+    }
+  ]
 }
